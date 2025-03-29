@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:theisi_app/front%20_end_app/models/modeldata.dart';
+import 'package:theisi_app/service/database.dart';
 
 class Newrfid extends StatefulWidget {
   const Newrfid({super.key});
@@ -8,11 +10,87 @@ class Newrfid extends StatefulWidget {
 }
 
 class _NewrfidState extends State<Newrfid> {
+  List<Modeldataforproducts> invetorysheet = [];
+  Databaseservices infosheet = Databaseservices();
+
+  void restockSheet() {
+    infosheet.getProducts().listen((event) {
+      List<Modeldataforproducts> tempList = []; //
+
+      for (var doc in event.docs) {
+        var data = doc.data();
+        if (data == null || data is! Map<String, dynamic>)
+          continue; // Ensure valid data
+
+        tempList.add(Modeldataforproducts(
+          name: data['name'] ?? '',
+          id: doc.id,
+          resupply: data['restockvalue'] ?? 0,
+          total: data['initalStock'] ?? 0, // Fixed typo
+          layer: data['layernumber'] ?? 0,
+        ));
+      }
+
+      setState(() {
+        invetorysheet = tempList;
+      });
+    });
+  }
+
+  void initState() {
+    super.initState();
+    restockSheet();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Text('newrfid'),
+      appBar: AppBar(
+        title: Text('Restock Sheet'),
+      ),
+      body: Center(
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 10),
+          child: Column(
+            children: [
+              Text(
+                'Inventory stock level',
+                style: TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal, // Enables scrolling if needed
+                child: DataTable(
+                  columns: [
+                    DataColumn(
+                        label: Text('Name',
+                            style: TextStyle(fontWeight: FontWeight.bold))),
+                    DataColumn(
+                        label: Text('Current Stock',
+                            style: TextStyle(fontWeight: FontWeight.bold))),
+                    DataColumn(
+                        label: Text('Restock Value',
+                            style: TextStyle(fontWeight: FontWeight.bold))),
+                  ],
+                  rows: invetorysheet
+                      .map((e) => DataRow(cells: [
+                            DataCell(Text(e.name)),
+                            DataCell(Text(e.total.toString())),
+                            DataCell(Text(e.resupply.toString())),
+                          ]))
+                      .toList(), // Convert map to list
+                ),
+              ),
+              TextButton(
+                onPressed: () {},
+                child: Text('Submit Stock report'),
+                style: ButtonStyle(),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

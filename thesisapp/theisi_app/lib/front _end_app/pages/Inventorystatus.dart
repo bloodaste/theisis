@@ -41,7 +41,7 @@ class _AnalyticspageState extends State<Analyticspage> {
 
         tempList.add(
           Modeldataforproducts(
-            id: doc.id, // Firestore document ID
+            id: doc.id,
             name: data['name'] ?? '',
             resupply: data['restockvalue'] ?? 0,
             total: data['initalStock'] ?? 0,

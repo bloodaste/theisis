@@ -23,35 +23,37 @@ class Addproducts extends StatefulWidget {
 class _AddproductsState extends State<Addproducts> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        TextField(
-          controller: widget.name,
-          decoration: InputDecoration(
-            label: Text('name of the product'),
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          TextField(
+            controller: widget.name,
+            decoration: InputDecoration(
+              label: Text('name of the product'),
+            ),
           ),
-        ),
-        TextField(
-          controller: widget.layernumber,
-          keyboardType: TextInputType.number,
-          decoration: InputDecoration(label: Text('layer number')),
-        ),
-        TextField(
-          controller: widget.currentstock,
-          keyboardType: TextInputType.number,
-          decoration: InputDecoration(label: Text('Initial Stock')),
-        ),
-        TextField(
-          controller: widget.needstoberestock,
-          keyboardType: TextInputType.number,
-          decoration: InputDecoration(label: Text('Need to resupply')),
-        ),
-        TextButton(
-          onPressed: widget.uploadimage,
-          child: Text('Image Type'),
-        )
-      ],
+          TextField(
+            controller: widget.layernumber,
+            keyboardType: TextInputType.number,
+            decoration: InputDecoration(label: Text('layer number')),
+          ),
+          TextField(
+            controller: widget.currentstock,
+            keyboardType: TextInputType.number,
+            decoration: InputDecoration(label: Text('Initial Stock')),
+          ),
+          TextField(
+            controller: widget.needstoberestock,
+            keyboardType: TextInputType.number,
+            decoration: InputDecoration(label: Text('Need to resupply')),
+          ),
+          TextButton(
+            onPressed: widget.uploadimage,
+            child: Text('Image Type'),
+          )
+        ],
+      ),
     );
   }
 }

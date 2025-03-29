@@ -28,149 +28,152 @@ class _SignupState extends State<Signup> {
       // appBar: AppBar(
       //   title: Text(''),
       // ),
-      body: SingleChildScrollView(
-        child: Center(
-          child: SafeArea(
-              child: Form(
-            key: _formKey,
-            child: Column(
-              children: [
-                Column(
-                  children: [
-                    Image.asset(
-                      'images/logo1.png',
-                      width: 300,
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      'Inventory Managment System ',
-                      style: TextStyle(
-                          fontFamily: 'cursive',
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 30),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Column(
-                            children: [
-                              Text(
-                                'Sign up',
-                                style: TextStyle(fontSize: 30),
-                              ),
-                            ],
-                          )
-                        ],
+      body: Center(
+        child: SingleChildScrollView(
+          child: Center(
+            child: SafeArea(
+                child: Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  Column(
+                    children: [
+                      Image.asset(
+                        'images/logo1.png',
+                        width: 300,
                       ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Inputform(
-                        hintext: 'Employee Name',
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        'Inventory Managment System ',
+                        style: TextStyle(
+                            fontFamily: 'cursive',
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 30),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Column(
+                              children: [
+                                Text(
+                                  'Sign up',
+                                  style: TextStyle(fontSize: 30),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Inputform(
+                          hintext: 'Employee Name',
+                          obsure: false,
+                          profile: Icon(Icons.person),
+                          control: name,
+                          valid: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'enter a valid email';
+                            } else {
+                              return null;
+                            }
+                          }),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Inputform(
+                        hintext: 'Employee No.',
                         obsure: false,
                         profile: Icon(Icons.person),
-                        control: name,
-                        valid: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'enter a valid email';
-                          } else {
-                            return null;
-                          }
-                        }),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Inputform(
-                      hintext: 'Employee No.',
-                      obsure: false,
-                      profile: Icon(Icons.person),
-                      control: email,
-                      valid: (value) =>
-                          value!.isEmpty ? 'Enter your employee number' : null,
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Inputform(
-                        hintext: 'Password (min. 8 characters)',
-                        obsure: showpassowd,
-                        profile: Icon(Icons.lock),
-                        control: createpassowrd,
-                        eye: IconButton(
-                            onPressed: () {
-                              setState(() {
-                                showpassowd = !showpassowd;
-                              });
-                            },
-                            icon: Icon(Icons.visibility)),
-                        valid: (value) {
-                          if (value == null || value.isEmpty) {
-                            return "Password can't be null";
-                          } else if (value.length < 8) {
-                            return 'Your Password is to short';
-                          } else {
-                            return null;
-                          }
-                        }),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    GestureDetector(
-                      onTap: () async {
-                        if (_formKey.currentState!.validate()) {
-                          dynamic result = await _auth.signup(
-                              name.text, createpassowrd.text, email.text);
-                          if (result == null) {
-                            setState(() {
-                              error = 'invalid email and password';
-                            });
-                          } else {
-                            return;
-                          }
-                        }
-                      },
-                      child: Button(
-                        input: 'Submit',
+                        control: email,
+                        valid: (value) => value!.isEmpty
+                            ? 'Enter your employee number'
+                            : null,
                       ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    SizedBox(
-                      height: 20,
-                      child: Text(error),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text('Have an account?'),
-                        SizedBox(
-                          width: 5,
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Inputform(
+                          hintext: 'Password (min. 8 characters)',
+                          obsure: showpassowd,
+                          profile: Icon(Icons.lock),
+                          control: createpassowrd,
+                          eye: IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  showpassowd = !showpassowd;
+                                });
+                              },
+                              icon: Icon(Icons.visibility)),
+                          valid: (value) {
+                            if (value == null || value.isEmpty) {
+                              return "Password can't be null";
+                            } else if (value.length < 8) {
+                              return 'Your Password is to short';
+                            } else {
+                              return null;
+                            }
+                          }),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      GestureDetector(
+                        onTap: () async {
+                          if (_formKey.currentState!.validate()) {
+                            dynamic result = await _auth.signup(
+                                name.text, createpassowrd.text, email.text);
+                            if (result == null) {
+                              setState(() {
+                                error = 'invalid email and password';
+                              });
+                            } else {
+                              return;
+                            }
+                          }
+                        },
+                        child: Button(
+                          input: 'Submit',
                         ),
-                        GestureDetector(
-                          onTap: () {
-                            widget.togglepages();
-                          },
-                          child: Text(
-                            'Sign In',
-                            style: TextStyle(color: Colors.orange),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      SizedBox(
+                        height: 20,
+                        child: Text(error),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text('Have an account?'),
+                          SizedBox(
+                            width: 5,
                           ),
-                        )
-                      ],
-                    )
-                  ],
-                ),
-              ],
-            ),
-          )),
+                          GestureDetector(
+                            onTap: () {
+                              widget.togglepages();
+                            },
+                            child: Text(
+                              'Sign In',
+                              style: TextStyle(color: Colors.orange),
+                            ),
+                          )
+                        ],
+                      )
+                    ],
+                  ),
+                ],
+              ),
+            )),
+          ),
         ),
       ),
     );
