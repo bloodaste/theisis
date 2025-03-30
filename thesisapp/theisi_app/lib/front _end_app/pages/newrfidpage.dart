@@ -19,8 +19,9 @@ class _NewrfidState extends State<Newrfid> {
 
       for (var doc in event.docs) {
         var data = doc.data();
-        if (data == null || data is! Map<String, dynamic>)
+        if (data == null || data is! Map<String, dynamic>) {
           continue; // Ensure valid data
+        }
 
         tempList.add(Modeldataforproducts(
           name: data['name'] ?? '',
@@ -37,6 +38,7 @@ class _NewrfidState extends State<Newrfid> {
     });
   }
 
+  @override
   void initState() {
     super.initState();
     restockSheet();
@@ -61,8 +63,9 @@ class _NewrfidState extends State<Newrfid> {
                 ),
               ),
               SingleChildScrollView(
-                scrollDirection: Axis.horizontal, // Enables scrolling if needed
+                scrollDirection: Axis.horizontal,
                 child: DataTable(
+                  columnSpacing: 35,
                   columns: [
                     DataColumn(
                         label: Text('Name',
@@ -85,8 +88,13 @@ class _NewrfidState extends State<Newrfid> {
               ),
               TextButton(
                 onPressed: () {},
+                style: TextButton.styleFrom(
+                  backgroundColor: Colors.blue,
+                  foregroundColor: Colors.white,
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  textStyle: TextStyle(fontSize: 15),
+                ),
                 child: Text('Submit Stock report'),
-                style: ButtonStyle(),
               ),
             ],
           ),
