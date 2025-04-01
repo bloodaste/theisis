@@ -62,39 +62,45 @@ class _NewrfidState extends State<Newrfid> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: DataTable(
-                  columnSpacing: 35,
-                  columns: [
-                    DataColumn(
-                        label: Text('Name',
-                            style: TextStyle(fontWeight: FontWeight.bold))),
-                    DataColumn(
-                        label: Text('Current Stock',
-                            style: TextStyle(fontWeight: FontWeight.bold))),
-                    DataColumn(
-                        label: Text('Restock Value',
-                            style: TextStyle(fontWeight: FontWeight.bold))),
-                  ],
-                  rows: invetorysheet
-                      .map((e) => DataRow(cells: [
-                            DataCell(Text(e.name)),
-                            DataCell(Text(e.total.toString())),
-                            DataCell(Text(e.resupply.toString())),
-                          ]))
-                      .toList(), // Convert map to list
+              Expanded(
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: DataTable(
+                    columnSpacing: 35,
+                    columns: [
+                      DataColumn(
+                          label: Text('Name',
+                              style: TextStyle(fontWeight: FontWeight.bold))),
+                      DataColumn(
+                          label: Text('Current Stock',
+                              style: TextStyle(fontWeight: FontWeight.bold))),
+                      DataColumn(
+                          label: Text('Restock Value',
+                              style: TextStyle(fontWeight: FontWeight.bold))),
+                    ],
+                    rows: invetorysheet
+                        .map((e) => DataRow(cells: [
+                              DataCell(Center(child: Text(e.name))),
+                              DataCell(Center(child: Text(e.total.toString()))),
+                              DataCell(
+                                  Center(child: Text(e.resupply.toString()))),
+                            ]))
+                        .toList(), // Convert map to list
+                  ),
                 ),
               ),
-              TextButton(
-                onPressed: () {},
-                style: TextButton.styleFrom(
-                  backgroundColor: Colors.blue,
-                  foregroundColor: Colors.white,
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  textStyle: TextStyle(fontSize: 15),
+              Container(
+                margin: EdgeInsets.symmetric(vertical: 20),
+                child: TextButton(
+                  onPressed: () {},
+                  style: TextButton.styleFrom(
+                    backgroundColor: Colors.blue,
+                    foregroundColor: Colors.white,
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    textStyle: TextStyle(fontSize: 15),
+                  ),
+                  child: Text('Submit Stock report'),
                 ),
-                child: Text('Submit Stock report'),
               ),
             ],
           ),

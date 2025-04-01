@@ -321,6 +321,7 @@ class _AnalyticspageState extends State<Analyticspage> {
             ),
             Expanded(
               child: ListView.builder(
+                addAutomaticKeepAlives: false,
                 itemCount: filtered.length,
                 itemBuilder: (context, index) {
                   return GestureDetector(

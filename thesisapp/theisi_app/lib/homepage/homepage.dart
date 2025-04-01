@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:theisi_app/front%20_end_app/pages/inventorystatus.dart';
 import 'package:theisi_app/front%20_end_app/pages/inventory.dart';
-import 'package:theisi_app/front%20_end_app/pages/newrfidpage.dart';
+import 'package:theisi_app/front%20_end_app/pages/registerfid.dart';
+import 'package:theisi_app/front%20_end_app/pages/restocksheet.dart';
 
 class NavBar extends StatefulWidget {
   const NavBar({super.key});
@@ -19,18 +20,24 @@ class _NavBarState extends State<NavBar> {
       Frontpage(),
       Analyticspage(),
       Newrfid(),
+      Registerfid(),
     ];
 
     return Scaffold(
       body: pages[index],
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        enableFeedback: false,
+        backgroundColor: Colors.white,
         onTap: (value) {
           setState(() {
             index = value;
           });
         },
         currentIndex: index,
-        selectedItemColor: Colors.green,
+        unselectedItemColor: Colors.grey,
+        showUnselectedLabels: true,
+        selectedItemColor: Colors.black,
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
@@ -41,8 +48,12 @@ class _NavBarState extends State<NavBar> {
             label: 'Product Item',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.scanner),
-            label: 'New RFID',
+            icon: Icon(Icons.inventory_2),
+            label: 'Restock sheet',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.analytics),
+            label: 'Analytics',
           ),
         ],
       ),

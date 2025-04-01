@@ -16,7 +16,6 @@ class Forgotpasswordpage extends StatefulWidget {
 
 class _ForgotpasswordpageState extends State<Forgotpasswordpage> {
   TextEditingController resetemail = TextEditingController();
-
   final Authservice _authservice = Authservice();
 
   @override
